@@ -1,9 +1,29 @@
 const http = require('http');
-http.createServer(function(req,res){
-    console.log('====================================')
-    console.log(req.query);
-    console.log('====================================')
-    res.writeHead(200,{'content-type':'text/plain;charset=utf-8','Access-Control-Allow-Origin':'*'});
-    res.write('魏延你好！');
+const querystring = require('querystring');
+const callback = (res,obj)=>{
+    res.writeHead(200, {
+        'content-type': 'text/json;charset=utf-8',
+        'Access-Control-Allow-Origin': '*'
+    });
+    res.write(JSON.stringify(obj));
     res.end();
+}
+http.createServer(function (req, res) {
+    console.log(req);
+    
+    let body = '';
+    req.on('data', function (chunk) {
+        body += chunk;
+    });
+    req.on('end', function () {
+        console.log(body);
+        let parm = querystring.parse(body);
+        console.log(parm);
+        if (parm.name == 'weiyan' && parm.pwd == '1234') {
+            callback(res,{code:1,msg:'登陆成功!'});
+        }else{
+            callback(res,{code:2,msg:'用户名密码错误!'});
+        }
+    })
+    
 }).listen(9999)
