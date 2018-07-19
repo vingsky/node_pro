@@ -8,8 +8,8 @@ export default class View extends React.Component {
         return (
             <div>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/about" component={About} />
-                <Route exact path="/top" component={Top} />
+                <Route path="/about" component={About} />
+                <Route path="/top/:id" component={Top} />
             </div>
         )
     }
