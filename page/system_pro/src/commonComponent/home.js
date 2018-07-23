@@ -10,7 +10,7 @@ export default class Home extends React.Component{
     render(){
         return(
             <div>
-                Home Page;
+                Home Page;aa
                 <button onClick={this.goTop}>go to top</button>
             </div>
         )
